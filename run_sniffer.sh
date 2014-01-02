@@ -5,6 +5,4 @@ if [[ $# -ne 1 ]]; then
     exit 1
 fi
 
-sudo rabbitmqctl trace_on
 ./rabbit_sniffer.py "$1"
-sudo rabbitmqctl trace_off

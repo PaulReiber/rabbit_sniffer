@@ -14,12 +14,12 @@ password = 'guest'
 host = 'localhost'
 port = '5672'
 
-exchange_name = 'amq.rabbitmq.trace'
+exchange_name = 'nova'
 routing_key_name = sys.argv[1]
 
 queue_name = 'tracing-queue-' + routing_key_name
 
-tracing_exchange = Exchange(exchange_name, 'topic', durable=True, auto_delete=False, internal=False)
+tracing_exchange = Exchange(exchange_name, 'topic', durable=False, auto_delete=False, internal=False)
 compute_queue = Queue(queue_name, exchange=tracing_exchange, routing_key=routing_key_name)
 
 def process_media(body, message):
