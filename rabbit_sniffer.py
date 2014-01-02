@@ -4,6 +4,7 @@ from kombu import Connection, Exchange, Queue
 
 import json
 import sys
+import signal
 
 if len(sys.argv) < 2:
     print >> sys.stderr, "Need one argument: [routing_key]"
@@ -44,6 +45,14 @@ full_path = 'amqp://%(user)s:%(password)s@%(host)s:%(port)s//' \
             , 'port'     : port }
 
 with Connection(full_path) as conn:
+    compute_queue_bound = compute_queue(conn)
+
+    def handler(signum, frame)
+        compute_queue_bound.delete()
+        print "Cleaned up queues"
+
+    signal.signal(signal.SIGINT, handler)
+
     with conn.Consumer(compute_queue, callbacks=[process_media]) as consumer:
         while True:
             conn.drain_events()
