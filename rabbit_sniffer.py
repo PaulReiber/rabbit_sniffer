@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from kombu import Connection, Exchange, Queue
+import json
 
 import sys
 
@@ -27,7 +28,9 @@ def process_media(body, message):
     print "delivery info:    %s" % message.delivery_info
     print "headers:          %s" % message.headers
     print "properties:       %s" % message.properties
-    print "body:             %s" % message.body
+    print "body:"
+    bb = json.loads(message.body)
+    print json.dumps(bb, sort_keys=True, indent=4, separators=(',', ': '))
     print "------ message end ----------"
     message.ack()
 
