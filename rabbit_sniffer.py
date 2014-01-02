@@ -1,19 +1,22 @@
 #!/usr/bin/env python
-from kombu import Connection, Exchange, Queue
-import json
 
+from kombu import Connection, Exchange, Queue
+
+import json
 import sys
 
 if len(sys.argv) < 2:
     print >> sys.stderr, "Need one argument: [routing_key]"
     sys.exit(1)
 
-#user = 'nova'
+# Configuration section
+
 user = 'guest'
-#password = 'D0xwYTR1'
 password = 'guest'
 host = 'localhost'
 port = '5672'
+
+# Main code
 
 exchange_name = 'nova'
 routing_key_name = sys.argv[1]
@@ -45,4 +48,4 @@ with Connection(full_path) as conn:
         while True:
             conn.drain_events()
 
-# vim: ts=4 sw=4 et
+# vim: ts=4 sw=4 et ai
