@@ -12,22 +12,12 @@ Usage
 Configuration section.
 - Modify host and port in rabbit_sniffer.py if necessary.
 (Normally it's not required)
-
-If you want to collect all messages from nova, then run
-
-```
- # run_sniffer.sh "*"
-```
-
-If you want to specify routing key, then put routing key instead of "*". Make
-sure you put your routing key pattern inside quotes, otherwise bash can expand
-*.
-
-You can list all available routing keys using the following command:
+- Run sniffer with the following command:
 
 ```
- # rabbitmqctl list_bindings | grep nova
+ # ./rabbit_sniffer.py
 ```
 
-This command prints all bindings which are already present
-on the rabbitmq server for nova exchange.
+This command will dump messages from nova exchange to nova.log and all messages
+from openstack exchange to openstack.log file. If you want to interrupt the
+sniffer press ctrl-c.
